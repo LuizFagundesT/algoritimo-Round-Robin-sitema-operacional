@@ -1,0 +1,1 @@
+import { Processo } from "./processo";
