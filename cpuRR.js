@@ -160,21 +160,47 @@ function tabelaDeProcessos(){
 
         //criando a celula do tempo de surto
         const tdTempoSurto = document.createElement('td');
-        tdTempoSurto.textContent=processo.tempoDeSurto;
+        tdTempoSurto.textContent= processo.tempoDeSurto;
         trLinhaProcesso.appendChild(tdTempoSurto);
 
         table.appendChild(trLinhaProcesso);
     }
 
     divCriaProcessos.append(table);
+
+    escalonaProcessos();
 }
 
 
 function escalonaProcessos(){
-    for(let i=0;i<filaDeProcessos.length;i++){
-        const processo = filaDeProcessos[i];
-    }
+    
+
+    do{
+        for(let i=0;i<filaDeProcessos.length;i++){
+            const processo = filaDeProcessos[i];
+    
+            //vamos verificar se o processo tem surto 0 po que sendo assim ele ja foi processado, caso contrario segue para processamento 
+            if(processo.tempoDeSurto==0){
+                console.log(`Processo ${processo.indiceProcesso} finalizado`);
+                
+            }else{
+                processo.tempoDeSurto= processo.tempoDeSurto - quantum;
+                console.log(processo.tempoDeSurto);
+            }
+        }
+    }while(verificador != filaDeProcessos.length);
 }
+
+
+
+//fazer função que verifica se todos os meus processos estão zerados!
+function verificaPosições(){
+
+}
+
+
+
+
 
 // Capturando o botão 
 const botaoCriaAlgoritimo = document.querySelector('#btnCriaProcessador');
