@@ -1,6 +1,6 @@
  
  //declarando minhas classes
- class Processo {
+class Processo {
     
     
     //criando cosntructor
@@ -15,12 +15,10 @@
 //VARIÁVEIS GLOBAIS 
 var quantum;
 var quantidadeProcessos;
+const filaDeProcessos = [];
 
 
-const pro = new Processo(10,10);
-
-
-// Função que salva os dados quantum e quantidade de processos
+// ESTA FUNÇÃO CRIA UM PROCESSADOR COM NUMERO DE PROCESSOS E O QUANTUM DE REALIZAÇÃO DE CADA PROCESSO
 function criaProcessador() {
     // CRIANDO ELEMENTOS //
     const btnSalvaProcessador = document.createElement('button');
@@ -77,6 +75,8 @@ function criaProcessador() {
     btnSalvaProcessador.addEventListener('click',salvaDados);
 }
 
+
+//ESSA FUNÇÃO VAI SALVAR OS DADOS NAS VARIÁVEIS GLOBAIS
 function salvaDados(){
     //excluido o botão de criar um processador uma vez que não faz sentino criar um processador novo ja que salvei informações do processador em questão.
     //NÃO DEIXA O USER CRIAR OUTRO PROCESSADOR..
@@ -89,22 +89,90 @@ function salvaDados(){
     quantidadeProcessos = document.querySelector('#quant-processos').value;
 
     // Exibindo o valor em um alert saalvo
-    alert("PROCESSADOR CRIADO COM SUCESSO\nNúmero de processos: "+quantidadeProcessos+"\nQuantum do processador: "+quantum);
+    alert("PROCESSADOR E PROCESSOS CRIADO COM SUCESSO\nNúmero de processos: "+quantidadeProcessos+"\nQuantum do processador: "+quantum);
     
    
+    criarProcessos();
+}
+
+//ESTA FUNÇÃO ESTA CRIANDO TODOS OS MEUS PROCESSOS E POPULANDO O ARRAY DE PROCESSOS 
+function criarProcessos(){
+    //Criando estrutura para solicitação de dados
+    
+    var surtoProcesso;
+
+    //vamos excluir o botão de salvar o processo, preciso fazer nesta função por que ele so excluido após a execução da outra
+    const btnSalvaProcessador=document.querySelector('#salvaProcessador');
+    btnSalvaProcessador.remove();
+
+
+    //solicitando valores do tempo de surto de cada processo
+    for(var i =0; i<quantidadeProcessos;i++){
+
+        surtoProcesso = prompt('DIGITE O TEMPO DE SURTO!\n P '+ (1+i));
+        //construindo um novo processo
+        const processo = new Processo (i+1 , parseInt(surtoProcesso));
+        //adicionando ele ao último da fila na fila de processos
+        filaDeProcessos.push (processo);
+    }
+    const tempoSurto = filaDeProcessos[1].tempoDeSurto;
+    
+
+
+    //com processos prontos basta exibi-los
+    tabelaDeProcessos();
 
 }
 
 
+function tabelaDeProcessos(){
+    //craindo estrutura de amostragem
+    const divCriaProcessos = document.querySelector('#ContainerCriaProcessos');
+
+    const table= document.createElement('table');
+    table.id='tabelaProcessos';
+    const tr = document.createElement('tr');
+    const thProcessos = document.createElement('th');
+    thProcessos.textContent='Processos';
+    const thSurtos = document.createElement('th');
+    thSurtos.textContent='Tempos de Surto'
+    const td = document.createElement('td');
+    
+    //adicionando os cabeçalhos
+    tr.appendChild(thProcessos);
+    tr.appendChild(thSurtos);
+
+    table.append(tr);
+
+    //adicionando todos os meus processos
+    for(let i=0; i<filaDeProcessos.length;i++){
+        //acessando o processo
+        const processo = filaDeProcessos[i];
+        
+        //criando uma linha 
+        const trLinhaProcesso = document.createElement('tr');
+
+        //criando a celula do processo
+        const tdNumProcesso = document.createElement('td');
+        tdNumProcesso.textContent=processo.indiceProcesso;
+        //colocando o conteudo na coluna primeira da linha
+        trLinhaProcesso.appendChild(tdNumProcesso);
+
+        //criando a celula do tempo de surto
+        const tdTempoSurto = document.createElement('td');
+        tdTempoSurto.textContent=processo.tempoDeSurto;
+        trLinhaProcesso.appendChild(tdTempoSurto);
+
+        table.appendChild(trLinhaProcesso);
+    }
+
+    divCriaProcessos.append(table);
+}
 
 
-//função que vai criar meus processos conforme suas caracteristicas
-
-function criarProcessos(){
-    var surtoProcesso;
-    for(let i=0;i<quantidadeProcessos;i++){
-      
-        surtoProcesso=prompt("Digite o valor do quantum de processo: " +i+":");
+function escalonaProcessos(){
+    for(let i=0;i<filaDeProcessos.length;i++){
+        const processo = filaDeProcessos[i];
     }
 }
 
