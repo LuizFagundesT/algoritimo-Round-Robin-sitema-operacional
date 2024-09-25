@@ -241,8 +241,8 @@ function escalonaProcessos(){
             trEscalonados.appendChild(tdCpuTime);
 
         }
-        
-        tabelaDeProcessos.appendChild(trEscalonados)
+
+        tabelaEscalonados.appendChild(trEscalonados)
 
     }while(verificaPosiçõesZeradas()==1);
     
