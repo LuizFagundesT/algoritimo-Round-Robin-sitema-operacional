@@ -1,4 +1,4 @@
- 
+    
  //declarando minhas classes
 class Processo {
     
@@ -173,29 +173,102 @@ function tabelaDeProcessos(){
 
 
 function escalonaProcessos(){
+    //////criando a estrutura///
+    //capturando minha estrutura no html
+    const ContainerEscalonaProcessos = document.querySelector('#ContainerEscalonaProcesso'); 
+    //criando a tabela
+    const tabelaEscalonados = document.createElement('table');
+    tabelaDeProcessos.id = 'tabelaEscalonados';
+    //criando meu TR para jogar na tabela
+    const trEscalonados = document.createElement('tr');
+
+
+    
     
 
+    //criando os TD
+    const tdProcesso = document.createElement('td');
+    const tdCpuTime = document.createElement('td');
+
+    //criando o TH processo
+    const thProcesso = document.createElement('th');
+    thProcesso.textContent = 'Processo';
+    //criando o TH CPu Time
+    const thTempoCpu = document.createElement('th');
+    thTempoCpu.textContent = 'CPU Time';
+
+    trEscalonados.append(thProcesso);
+    trEscalonados.append(thTempoCpu);
+
+    tabelaEscalonados.append(trEscalonados);
+    ContainerEscalonaProcessos.appendChild(tabelaEscalonados);
+
+
+
+
+
+
+    
+    //este loping faz a quatidada de vezes que vai ser feito um ciclo 
     do{
+        /////////////////LOGICA DE ESCALONAMENTO /////////////////////
+        //este for faz a redução de um ciclo em toda minha fila de processos
         for(let i=0;i<filaDeProcessos.length;i++){
             const processo = filaDeProcessos[i];
-    
+            tdProcesso.textContent = "P"+processo.indiceProcesso;
             //vamos verificar se o processo tem surto 0 po que sendo assim ele ja foi processado, caso contrario segue para processamento 
-            if(processo.tempoDeSurto==0){
+            if(processo.tempoDeSurto<=0){
+                //isso é feito na intenção de caso o 
+                processo.tempoDeSurto =0;
                 console.log(`Processo ${processo.indiceProcesso} finalizado`);
                 
+                tdCpuTime.textContent = `Processo ${processo.indiceProcesso} finalizado`;
+                
             }else{
-                processo.tempoDeSurto= processo.tempoDeSurto - quantum;
+                if(processo.tempoDeSurto<=quantum){
+                    processo.tempoDeSurto = processo.tempoDeSurto - 
+                    processo.tempoDeSurto;
+                    
+                }else{
+                    processo.tempoDeSurto= processo.tempoDeSurto - quantum;
+                    
+                }
                 console.log(processo.tempoDeSurto);
+                tdCpuTime.textContent = "Falta"+ processo.tempoDeSurto;
             }
+
+            trEscalonados.appendChild(tdProcesso);
+            trEscalonados.appendChild(tdCpuTime);
+
         }
-    }while(verificador != filaDeProcessos.length);
+        
+        tabelaDeProcessos.appendChild(trEscalonados)
+
+    }while(verificaPosiçõesZeradas()==1);
+    
+    ContainerEscalonaProcessos.append(tabelaDeProcessos);
+
+
 }
 
 
 
 //fazer função que verifica se todos os meus processos estão zerados!
-function verificaPosições(){
-
+function verificaPosiçõesZeradas(){
+    let processosFinalizados = 0;
+    for (let i = 0;i<filaDeProcessos.length;i++){
+        const processo = filaDeProcessos[i];
+        if(processo.tempoDeSurto === 0){
+            processosFinalizados++;
+        }
+    }
+    // a ideia é a função retornar 0 para desligar o escalonador e retornar 1 para mante-lo ligado. No caso de 0 siginfica que todos os preocessos estão zerados, no caso de 1 significa que os processos todos ainda não foram finalizados.
+    if(processosFinalizados == filaDeProcessos.length){
+        return 0;
+    }
+    else{
+        return 1;
+    }
 }
 
 

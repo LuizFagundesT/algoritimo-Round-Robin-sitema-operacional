@@ -9,3 +9,16 @@
 #tabelaProcessos {
     border: 1px black solid;
 }
+
+
+#tabelaEscalonados th{
+    border: 1px black solid;
+}
+
+#tabelaEscalonados td {
+    border: 1px black solid;
+}
+
+#tabelaEscalonados {
+    border: 1px black solid;
+}
