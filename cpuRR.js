@@ -15,6 +15,8 @@ class Processo {
 //VARIÁVEIS GLOBAIS 
 var quantum;
 var quantidadeProcessos;
+var tempoSurtoProcessador;
+
 const filaDeProcessos = [];
 
 
@@ -173,41 +175,40 @@ function tabelaDeProcessos(){
 
 
 function escalonaProcessos(){
+
     //////criando a estrutura///
     //capturando minha estrutura no html
     const ContainerEscalonaProcessos = document.querySelector('#ContainerEscalonaProcesso'); 
     //criando a tabela
     const tabelaEscalonados = document.createElement('table');
-    tabelaDeProcessos.id = 'tabelaEscalonados';
-    //criando meu TR para jogar na tabela
-    const trEscalonados = document.createElement('tr');
-
-
-    
-    
-
-    //criando os TD
-    const tdProcesso = document.createElement('td');
-    const tdCpuTime = document.createElement('td');
+    tabelaEscalonados.id = 'tabelaEscalonados';
+    //criando o tr do cabeçalho
+    const trCabeçalho= document.createElement('tr');
 
     //criando o TH processo
     const thProcesso = document.createElement('th');
     thProcesso.textContent = 'Processo';
+
     //criando o TH CPu Time
     const thTempoCpu = document.createElement('th');
     thTempoCpu.textContent = 'CPU Time';
 
-    trEscalonados.append(thProcesso);
-    trEscalonados.append(thTempoCpu);
+    //criando o TH do tempo de surto
+    const thTempoSurtoProcessador= document.createElement('th');
+    thTempoSurtoProcessador.textContent = 'Tempo Surto Processador';
 
-    tabelaEscalonados.append(trEscalonados);
+    trCabeçalho.append(thProcesso);
+    trCabeçalho.append(thTempoCpu);
+    trCabeçalho.append(thTempoSurtoProcessador);
+
+    tabelaEscalonados.append(trCabeçalho);
     ContainerEscalonaProcessos.appendChild(tabelaEscalonados);
 
 
 
 
-
-
+    tempoSurtoProcessador = 0;
+    
     
     //este loping faz a quatidada de vezes que vai ser feito um ciclo 
     do{
@@ -215,38 +216,58 @@ function escalonaProcessos(){
         //este for faz a redução de um ciclo em toda minha fila de processos
         for(let i=0;i<filaDeProcessos.length;i++){
             const processo = filaDeProcessos[i];
+            //criando os TDs
+            const tdProcesso = document.createElement('td');
+            const tdCpuTime = document.createElement('td');
+            const tdTempoSurtoProcessador = document.createElement('td');
+
             tdProcesso.textContent = "P"+processo.indiceProcesso;
+
+
             //vamos verificar se o processo tem surto 0 po que sendo assim ele ja foi processado, caso contrario segue para processamento 
             if(processo.tempoDeSurto<=0){
                 //isso é feito na intenção de caso o 
-                processo.tempoDeSurto =0;
+                processo.tempoDeSurto = 0;
                 console.log(`Processo ${processo.indiceProcesso} finalizado`);
+                
                 
                 tdCpuTime.textContent = `Processo ${processo.indiceProcesso} finalizado`;
                 
+                console.log("tempo "+tempoSurtoProcessador);
+
+                tdTempoSurtoProcessador.textContent = tempoSurtoProcessador;
             }else{
                 if(processo.tempoDeSurto<=quantum){
                     processo.tempoDeSurto = processo.tempoDeSurto - 
                     processo.tempoDeSurto;
+                    tempoSurtoProcessador = tempoSurtoProcessador +parseInt(quantum);
                     
                 }else{
                     processo.tempoDeSurto= processo.tempoDeSurto - quantum;
-                    
+                    tempoSurtoProcessador = tempoSurtoProcessador+parseInt(quantum);
                 }
                 console.log(processo.tempoDeSurto);
-                tdCpuTime.textContent = "Falta"+ processo.tempoDeSurto;
-            }
+                console.log("tempo "+tempoSurtoProcessador);
+                
 
+                tdCpuTime.textContent = "Falta "+ processo.tempoDeSurto;
+                tdTempoSurtoProcessador.textContent = tempoSurtoProcessador;
+            
+            }
+            
+            //criando minha nova TR para jogar na tabela
+            const trEscalonados = document.createElement('tr');
             trEscalonados.appendChild(tdProcesso);
             trEscalonados.appendChild(tdCpuTime);
+            trEscalonados.appendChild(tdTempoSurtoProcessador);
 
+            //jogando na tabela minha nova linha 
+            tabelaEscalonados.appendChild(trEscalonados);
         }
-
-        tabelaEscalonados.appendChild(trEscalonados)
 
     }while(verificaPosiçõesZeradas()==1);
     
-    ContainerEscalonaProcessos.append(tabelaDeProcessos);
+    ContainerEscalonaProcessos.append(tabelaEscalonados);
 
 
 }
