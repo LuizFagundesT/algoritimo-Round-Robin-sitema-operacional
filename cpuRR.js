@@ -46,7 +46,7 @@ function criaProcessador() {
 
     //criando meu imput de dados quantum do processador
     const imputQuantum = document.createElement('input');
-    imputQuantum.type = 'number';
+    //imputQuantum.type = 'number';
     imputQuantum.id = 'quantum';
 
 
@@ -57,7 +57,7 @@ function criaProcessador() {
 
     //criando meu imput de dados de numero de processos
     const imputNumProcessos = document.createElement('input');
-    imputNumProcessos.type = 'number';
+    //imputNumProcessos.type = 'number';
     imputNumProcessos.id = 'quant-processos';
 
     //adicionando os elementos as suas respectivas estruturas
