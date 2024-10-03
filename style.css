@@ -33,6 +33,8 @@ body{
 #cabecalho{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
     background-color: #7a8370ac;
     border-radius: 50px;
@@ -116,4 +118,8 @@ body{
 
 #tabelaProcessos{
     background-color: #df8615;
+}
+
+#explicacao{
+    display: flex;
 }
