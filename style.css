@@ -1,3 +1,10 @@
+*{
+    border: 1px red solid;
+}
+body{
+    background-color: #f0f0d8;
+}
+
 #tabelaProcessos th{
     border: 1px black solid;
 }
@@ -23,3 +30,90 @@
     border: 1px black solid;
 }
 
+#cabecalho{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #7a8370ac;
+    border-radius: 50px;
+}
+
+#btnCriaProcessador{
+    border: 3px black solid;
+    padding: 8px;
+    border-radius: 30px;
+    width:250px;
+    background-color: #f84600;
+}
+
+#btnCriaProcessador:hover{
+    background-color: #df8615;
+}
+
+#ContainerDados{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center;
+}
+
+.divNumeroProcessos{
+    padding: 15px;
+    background-color: #df8615;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px black solid;
+}
+
+
+#ContainerCriaProcessos{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+#ContainerEscalonaProcesso{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+#tabelaEscalonados{
+    background-color: #df8615;
+}
+
+#salvaProcessador{
+    padding: 6px;
+    background-color: #55df15;
+    border-radius: 50px;
+    width: 150px;
+    margin: 10px;
+    border: 3px black solid;
+}
+
+#salvaProcessador:hover{
+
+    background-color: #55df1591;
+}
+
+#quant-processos{
+    width: 50px;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+#quantum{
+    width: 50px;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+#tabelaProcessos{
+    background-color: #df8615;
+}
