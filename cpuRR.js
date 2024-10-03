@@ -238,9 +238,12 @@ function escalonaProcessos(){
                 tdTempoSurtoProcessador.textContent = tempoSurtoProcessador;
             }else{
                 if(processo.tempoDeSurto<=quantum){
-                    processo.tempoDeSurto = processo.tempoDeSurto - 
+
+                    tempoSurtoProcessador = tempoSurtoProcessador + processo.tempoDeSurto;
+                    
+                    processo.tempoDeSurto = processo.tempoDeSurto -
                     processo.tempoDeSurto;
-                    tempoSurtoProcessador = tempoSurtoProcessador +parseInt(quantum);
+                    
                     
                 }else{
                     processo.tempoDeSurto= processo.tempoDeSurto - quantum;
